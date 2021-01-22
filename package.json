@@ -1,0 +1,34 @@
+{
+  "name": "serverless-httpapi-route-settings",
+  "version": "0.0.1",
+  "description": "A Serverless Framework Plugin which helps you configure Route Settings for your HttpApi",
+  "main": "src/httpApiRouteSettingsPlugin.js",
+  "dependencies": {
+    "lodash.get": "^4.4.2",
+    "lodash.isempty": "^4.4.0",
+    "lodash.set": "^4.3.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/talbotp/serverless-httpApi-route-settings.git"
+  },
+  "keywords": [
+    "aws",
+    "serverless",
+    "apigateway",
+    "api",
+    "gateway",
+    "lambda",
+    "http"
+  ],
+  "author": "talbotp",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/talbotp/serverless-httpApi-route-settings/issues"
+  },
+  "homepage": "https://github.com/talbotp/serverless-httpApi-route-settings#readme"
+}
