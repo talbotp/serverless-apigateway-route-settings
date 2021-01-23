@@ -1,34 +1,41 @@
 {
-  "name": "serverless-httpapi-route-settings",
+  "name": "serverless-apigateway-route-settings",
   "version": "0.0.1",
-  "description": "A Serverless Framework Plugin which helps you configure Route Settings for your HttpApi",
-  "main": "src/httpApiRouteSettingsPlugin.js",
+  "description": "A Serverless Framework Plugin for configuring Route Settings for Api Gateway v2",
+  "main": "src/apiGatewayRouteSettingsPlugin.js",
+  "directories": {
+    "test": "test"
+  },
   "dependencies": {
     "lodash.get": "^4.4.2",
     "lodash.isempty": "^4.4.0",
     "lodash.set": "^4.3.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^8.2.1"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/talbotp/serverless-httpApi-route-settings.git"
+    "url": "git+https://github.com/talbotp/serverless-apigateway-route-settings.git"
   },
   "keywords": [
-    "aws",
     "serverless",
+    "plugin",
     "apigateway",
     "api",
     "gateway",
-    "lambda",
-    "http"
+    "httpApi",
+    "throttling",
+    "lambda"
   ],
   "author": "talbotp",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/talbotp/serverless-httpApi-route-settings/issues"
+    "url": "https://github.com/talbotp/serverless-apigateway-route-settings/issues"
   },
-  "homepage": "https://github.com/talbotp/serverless-httpApi-route-settings#readme"
+  "homepage": "https://github.com/talbotp/serverless-apigateway-route-settings#readme"
 }

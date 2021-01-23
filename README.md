@@ -1,24 +1,44 @@
-# serverless-httpApi-route-settings
+# serverless-apigateway-route-settings
 
 ## About
 
-A <a href="https://serverless.com/" target="_blank">Serverless Framework</a> Plugin which helps you configure route specific variables, such as throttling rate limit etc.
+A <a href="https://serverless.com/" target="_blank">Serverless Framework</a> Plugin which helps you configure route specific variables, such as throttling rate limits, logging levels etc (see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apigatewayv2-stage-routesettings.html" target="_blank">CloudFormation RouteSettings</a>) for Api Gateway v2 (HTTP).
+
+## Supported RouteSettings 
+
+ApiGateway v2 seems to only accept the following RouteSettings for Api Gateway v2 (HTTP):
+
+* ThrottlingBurstLimit
+* ThrottlingRateLimit
+* DetailedMetricsEnabled
 
 ## Get Started
 
 ```bash
-npm install serverless-http-api-helper
+npm install serverless-apigateway-route-settings
 ```
 
 Edit your serverless.yml to use this plugin:
 
 ```yml
 plugins:
-  - serverless-http-api-helper
+  - serverless-apigateway-route-settings
 ```
 
-## What HttpApi Settings Can I Use?
+Next, edit your serverless.yml for <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigatewayv2-stage.html#cfn-apigatewayv2-stage-defaultroutesettings" target="_blank">DefaultRouteSettings</a>
 
+```yml
+custom:
+  httpApiRouteSettings:
+    burstLimit: 200
+    rateLimit: 400
+    detailedMetricsEnabled: true
+```
+
+## Caveats
+
+* Only DefaultRouteSettings are currently supported, I'm currently trying to get CloudFormation to work with RouteSettings for individual routes to override this.
+* Doesn't work with pre existing API Gateways, hoping to add support for this.
   
 ## Example serverless.yml
 
@@ -32,10 +52,9 @@ plugins:
 
 custom: 
   httpApiRouteSettings:
-    # These will be the default route settings throttling limits
-    # unless overridden.
-    burstLimit: 200
-    rateLimit: 400
+    detailedMetricsEnabled: true
+    rateLimit: 200
+    burstLimit: 30
 
 provider:
   name: aws
@@ -57,7 +76,4 @@ functions:
       - httpApi:
           path: /throttle
           method: GET
-          httpApiRouteSettings:
-            burstLimit: 5
-            rateLimit: 10
 ```

@@ -4,6 +4,8 @@ const get = require('lodash.get');
 const set = require('lodash.set');
 const isEmpty = require('lodash.isempty');
 
+const config = require('./config');
+
 const getStageName = (serverless) => {
   return 'HttpApiStage';
 }
@@ -17,19 +19,20 @@ const setIfDefined = (object, path, value) => {
 
 const updateDefaultRouteSettings = (serverless, defaultSettings) => {
   if (!defaultSettings || isEmpty(defaultSettings)) {
-    serverless.cli.log('[serverless-httpApi-route-settings] No Default Routen Settings are being added to CloudFormation.');
+    serverless.cli.log(`[${config.app}] No Default Routen Settings are being added to CloudFormation.`);
     return;
   }
 
-  const template = get(serverless, 'service.provider.compiledCloudFormationTemplate');
-
   const HttpApiStage = getStageName(serverless);
+  const stageProperties = get(serverless, `service.provider.compiledCloudFormationTemplate.Resources.${HttpApiStage}.Properties`);
 
-  setIfDefined(template, 'Resources.' + HttpApiStage + '.Properties.DefaultRouteettings.DataTraceEnabled',        defaultSettings.dataTraceEnabled);
-  setIfDefined(template, 'Resources.' + HttpApiStage + '.Properties.DefaultRouteSettings.DetailedMetricsEnabled', defaultSettings.detailedMetricsEnabled);
-  setIfDefined(template, 'Resources.' + HttpApiStage + '.Properties.DefaultRouteSettings.LoggingLevel',           defaultSettings.loggingLevel);
-  setIfDefined(template, 'Resources.' + HttpApiStage + '.Properties.DefaultRouteSettings.ThrottlingBurstLimit',   defaultSettings.burstLimit);
-  setIfDefined(template, 'Resources.' + HttpApiStage + '.Properties.DefaultRouteSettings.ThrottlingRateLimit',    defaultSettings.rateLimit);
+  setIfDefined(stageProperties, `DefaultRouteettings.DataTraceEnabled`,        defaultSettings.dataTraceEnabled);
+  setIfDefined(stageProperties, `DefaultRouteSettings.LoggingLevel`,           defaultSettings.loggingLevel);
+  setIfDefined(stageProperties, `DefaultRouteSettings.DetailedMetricsEnabled`, defaultSettings.detailedMetricsEnabled);
+  setIfDefined(stageProperties, `DefaultRouteSettings.ThrottlingBurstLimit`,   defaultSettings.burstLimit);
+  setIfDefined(stageProperties, `DefaultRouteSettings.ThrottlingRateLimit`,    defaultSettings.rateLimit);
+
+  console.log(stageProperties);
 }
 
 const getRouteKey = (routeSettings) => {
@@ -40,30 +43,16 @@ const updateRouteSettings = (serverless, routeSettings) => {
   if (!routeSettings || isEmpty(routeSettings)) {
     return;
   }
-  const template = get(serverless, 'service.provider.compiledCloudFormationTemplate');
+
   const HttpApiStage = getStageName(serverless);
+  const stageProperties = get(serverless, `service.provider.compiledCloudFormationTemplate.Resources.${HttpApiStage}.Properties`);
   const routeKey = getRouteKey(routeSettings);
 
-  // console.log(template.Resources.HttpApiRoutePutPoop.Properties.ApiId);
-  // console.log(template.Resources.HttpApiRoutePutPoop.Properties.Target);
-  // throw "poop";
-
-  console.log(routeKey)
-  console.log(routeSettings.functionName)
-
-  routeSettings = {
-    'GET hello': {
-      ThrottlingBurstLimit: 100
-    }
-  };
-
-  set(template, 'Resources.' + HttpApiStage + '.Properties.RouteSettings', routeSettings)
-
-  // setIfDefined(template, 'Resources.' + HttpApiStage + '.Properties.RouteSettings.' + routeKey + '.DataTraceEnabled',       routeSettings.dataTraceEnabled);
-  // setIfDefined(template, 'Resources.' + HttpApiStage + '.Properties.RouteSettings.' + routeKey + '.DetailedMetricsEnabled', routeSettings.detailedMetricsEnabled);
-  // setIfDefined(template, 'Resources.' + HttpApiStage + '.Properties.RouteSettings.' + routeKey + '.LoggingLevel',           routeSettings.loggingLevel);
-  // setIfDefined(template, 'Resources.' + HttpApiStage + '.Properties.RouteSettings.' + routeKey + '.ThrottlingBurstLimit',   routeSettings.burstLimit);
-  // setIfDefined(template, 'Resources.' + HttpApiStage + '.Properties.RouteSettings./fuck/my/ass.ThrottlingRateLimit',    routeSettings.rateLimit);
+  setIfDefined(stageProperties, `RouteSettings.${routeKey}.DataTraceEnabled`,       routeSettings.dataTraceEnabled);
+  setIfDefined(stageProperties, `RouteSettings.${routeKey}.DetailedMetricsEnabled`, routeSettings.detailedMetricsEnabled);
+  setIfDefined(stageProperties, `RouteSettings.${routeKey}.LoggingLevel`,           routeSettings.loggingLevel);
+  setIfDefined(stageProperties, `RouteSettings.${routeKey}.ThrottlingBurstLimit`,   routeSettings.burstLimit);
+  setIfDefined(stageProperties, `RouteSettings.${routeKey}.ThrottlingRateLimit`,    routeSettings.rateLimit);
 }
 
 const updateCloudformation = (serverless, settings) => {
@@ -73,14 +62,13 @@ const updateCloudformation = (serverless, settings) => {
 
   updateDefaultRouteSettings(serverless, settings.defaultRouteSettings);
 
-  console.log(serverless.service.provider.compiledCloudFormationTemplate.Resources);
+  serverless.cli.log(`[${config.app}] Ignoring Individual Route Settings until future update, only default route settings are currently supported.`);
 
   // Next update individual route settings.
-  for (let routeSettings of settings.routeSettings) {
-    updateRouteSettings(serverless, routeSettings);
-  }
+  // for (let routeSettings of settings.routeSettings) {
+  //   updateRouteSettings(serverless, routeSettings);
+  // }
 
-  console.log(serverless.service.provider.compiledCloudFormationTemplate.Resources.HttpApiStage.Properties);
 }
 
 module.exports = updateCloudformation;

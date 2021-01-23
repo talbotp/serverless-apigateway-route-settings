@@ -3,17 +3,18 @@
 const get = require('lodash.get');
 const isEmpty = require('lodash.isempty');
 
+const config = require('./config');
 const RouteSettings = require('./routeSettings');
 
-class HttpApiStageSettings {
+class StageSettings {
 
   constructor(serverless, options) {
     if (!get(serverless, 'service.custom.httpApiRouteSettings')) {
-      serverless.cli.log('[serverless-httpApi-route-settings] Warning: No default Route Settings have been provided.');
+      serverless.cli.log(`[${config.app}] Warning: No default Route Settings have been provided.`);
     }
 
     if (!get(serverless, 'service.functions')) {
-      serverless.cli.log('[serverless-httpApi-route-settings] Warning: No functions defined.');
+      serverless.cli.log(`[${config.app}] Warning: No functions defined.`);
       return;
     }
 
@@ -40,4 +41,4 @@ class HttpApiStageSettings {
 
 }
 
-module.exports = HttpApiStageSettings;
+module.exports = StageSettings;
