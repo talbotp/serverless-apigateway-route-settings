@@ -1,5 +1,7 @@
 # serverless-apigateway-route-settings
 
+![npm](https://img.shields.io/npm/v/serverless-apigateway-route-settings.svg)
+
 ## About
 
 A <a href="https://serverless.com/" target="_blank">Serverless Framework</a> Plugin which helps you configure route specific variables, such as throttling rate limits, logging levels etc (see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apigatewayv2-stage-routesettings.html" target="_blank">CloudFormation RouteSettings</a>) for Api Gateway v2 (HTTP).
