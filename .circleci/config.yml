@@ -1,0 +1,44 @@
+version: 2
+
+defaults:
+  os_image: &os_image
+    docker:
+      - image: cimg/node:12.20.1
+
+jobs:
+  test:
+    <<: *os_image
+    steps:
+      - checkout
+      - run: 
+          name: Install dependencies
+          command: npm install 
+      - run:
+          name: Run Tests
+          command: npm run test
+      - persist_to_workspace:
+          root: ~/
+          paths: .
+  live:
+    <<: *os_image
+    steps:
+      - attach_workspace:
+          at: ~/
+      - run:
+          name: Authenticate with npm
+          command: echo "//registry.npmjs.org/:_authToken=$npm_TOKEN" > ~/repo/.npmrc
+      - run: 
+          name: Publish to npm
+          command: npm publish
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - test
+      - live:
+          requires:
+            - test
+          filters:
+            branches:
+              only: master
