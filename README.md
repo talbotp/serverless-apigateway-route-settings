@@ -1,10 +1,13 @@
 # serverless-apigateway-route-settings
 
-![npm](https://img.shields.io/npm/v/serverless-apigateway-route-settings.svg)
+[![CircleCI](https://circleci.com/gh/talbotp/serverless-apigateway-route-settings.svg?style=svg)](https://circleci.com/gh/talbotp/serverless-apigateway-route-settings) [![npm](https://img.shields.io/npm/v/serverless-apigateway-route-settings.svg)](https://www.npmjs.com/package/serverless-apigateway-route-settings) [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/talbotp/serverless-apigateway-route-settings/issues)
+
 
 ## About
 
-A <a href="https://serverless.com/" target="_blank">Serverless Framework</a> Plugin which helps you configure route specific variables, such as throttling rate limits, logging levels etc (see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apigatewayv2-stage-routesettings.html" target="_blank">CloudFormation RouteSettings</a>) for Api Gateway v2 (HTTP).
+A <a href="https://serverless.com/" target="_blank">Serverless Framework</a> Plugin which helps you configure route specific variables, such as *throttling rate limits, detailed metrics etc (see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apigatewayv2-stage-routesettings.html" target="_blank">CloudFormation RouteSettings</a>) for Api Gateway v2 (HTTP).
+
+Note: Currently only works for <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigatewayv2-stage.html#cfn-apigatewayv2-stage-defaultroutesettings">Default Route Settings</a>, I am hoping to allow route specific override in a future update.
 
 ## Supported RouteSettings 
 
@@ -50,7 +53,7 @@ service: example
 frameworkVersion: '2'
 
 plugins:
-  - serverless-http-api-helper
+  - serverless-apigateway-route-settings
 
 custom: 
   httpApiRouteSettings:

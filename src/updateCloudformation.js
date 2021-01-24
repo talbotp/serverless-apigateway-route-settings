@@ -19,7 +19,7 @@ const setIfDefined = (object, path, value) => {
 
 const updateDefaultRouteSettings = (serverless, defaultSettings) => {
   if (!defaultSettings || isEmpty(defaultSettings)) {
-    serverless.cli.log(`[${config.app}] No Default Routen Settings are being added to CloudFormation.`);
+    serverless.cli.log(`[${config.app}] No Default Route Settings are being added to CloudFormation.`);
     return;
   }
 
@@ -31,8 +31,6 @@ const updateDefaultRouteSettings = (serverless, defaultSettings) => {
   setIfDefined(stageProperties, `DefaultRouteSettings.DetailedMetricsEnabled`, defaultSettings.detailedMetricsEnabled);
   setIfDefined(stageProperties, `DefaultRouteSettings.ThrottlingBurstLimit`,   defaultSettings.burstLimit);
   setIfDefined(stageProperties, `DefaultRouteSettings.ThrottlingRateLimit`,    defaultSettings.rateLimit);
-
-  console.log(stageProperties);
 }
 
 const getRouteKey = (routeSettings) => {
