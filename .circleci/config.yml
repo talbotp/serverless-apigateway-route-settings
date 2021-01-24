@@ -26,7 +26,7 @@ jobs:
           at: ~/
       - run:
           name: Authenticate with npm
-          command: echo "//registry.npmjs.org/:_authToken=$npm_TOKEN" > ~/repo/.npmrc
+          command: echo "//registry.npmjs.org/:_authToken=$npm_TOKEN" > ~/.npmrc
       - run: 
           name: Publish to npm
           command: npm publish
