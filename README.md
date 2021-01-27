@@ -1,6 +1,6 @@
 # serverless-apigateway-route-settings
 
-[![CircleCI](https://circleci.com/gh/talbotp/serverless-apigateway-route-settings.svg?style=svg)](https://circleci.com/gh/talbotp/serverless-apigateway-route-settings) [![npm](https://img.shields.io/npm/v/serverless-apigateway-route-settings.svg)](https://www.npmjs.com/package/serverless-apigateway-route-settings) [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/talbotp/serverless-apigateway-route-settings/issues)
+[![serverless](http://public.serverless.com/badges/v3.svg)](http://www.serverless.com) [![CircleCI](https://circleci.com/gh/talbotp/serverless-apigateway-route-settings.svg?style=svg)](https://circleci.com/gh/talbotp/serverless-apigateway-route-settings) [![npm](https://img.shields.io/npm/v/serverless-apigateway-route-settings.svg)](https://www.npmjs.com/package/serverless-apigateway-route-settings) [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/talbotp/serverless-apigateway-route-settings/issues)
 
 
 ## About
