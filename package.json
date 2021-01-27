@@ -1,6 +1,6 @@
 {
   "name": "serverless-apigateway-route-settings",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A Serverless Framework Plugin for configuring Route Settings for Api Gateway v2",
   "main": "src/apiGatewayRouteSettingsPlugin.js",
   "directories": {
@@ -13,7 +13,8 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "mocha": "^8.2.1"
+    "mocha": "^8.2.1",
+    "rewire": "^5.0.0"
   },
   "scripts": {
     "test": "mocha"

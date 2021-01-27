@@ -32,10 +32,14 @@ class StageSettings {
 
       // For each event, we build a route settings object.
       for (let event of functionSettings.events) {
-        if (get(event, 'httpApi')) {
-          this.routeSettings.push(RouteSettings.buildRouteSettings(functionName, event));
+        if (get(event, `httpApi.${config.key}`)) {
+          this.routeSettings.push(RouteSettings.buildRouteSettings(functionName, event, this.defaultRouteSettings));
         }
       }
+    }
+
+    if (this.routeSettings.length === 0) {
+      serverless.cli.log(`[${config.app}] Warning: No Route settings have been provided.`)
     }
   }
 

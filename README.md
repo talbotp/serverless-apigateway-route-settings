@@ -5,9 +5,7 @@
 
 ## About
 
-A <a href="https://serverless.com/" target="_blank">Serverless Framework</a> Plugin which helps you configure route specific variables, such as *throttling rate limits, detailed metrics etc (see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apigatewayv2-stage-routesettings.html" target="_blank">CloudFormation RouteSettings</a>) for Api Gateway v2 (HTTP).
-
-Note: Currently only works for <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigatewayv2-stage.html#cfn-apigatewayv2-stage-defaultroutesettings">Default Route Settings</a>, I am hoping to allow route specific override in a future update.
+A <a href="https://serverless.com/" target="_blank">Serverless Framework</a> Plugin which helps you configure route specific variables, such as *throttling rate limits, detailed metrics etc (see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apigatewayv2-stage-routesettings.html" target="_blank">CloudFormation RouteSettings</a>) for Api Gateway v2 (HTTP). Also allows defaults to be set in the 
 
 ## Supported RouteSettings 
 
@@ -22,6 +20,10 @@ ApiGateway v2 seems to only accept the following RouteSettings for Api Gateway v
 ```bash
 npm install serverless-apigateway-route-settings
 ```
+or
+```bash
+yarn add serverless-apigateway-route-settings
+```
 
 Edit your serverless.yml to use this plugin:
 
@@ -30,20 +32,37 @@ plugins:
   - serverless-apigateway-route-settings
 ```
 
-Next, edit your serverless.yml for <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigatewayv2-stage.html#cfn-apigatewayv2-stage-defaultroutesettings" target="_blank">DefaultRouteSettings</a>
+Next, edit your serverless.yml for <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigatewayv2-stage.html#cfn-apigatewayv2-stage-defaultroutesettings" target="_blank">DefaultRouteSettings</a>. What you enter here will be the default for each route in the stage.
 
 ```yml
 custom:
-  httpApiRouteSettings:
+  routeSettings:
     burstLimit: 200
     rateLimit: 400
     detailedMetricsEnabled: true
 ```
 
+You can override the default route settings/account defaults by configuring at the route level. for example:
+
+```yml
+functions:
+  # Inherits the default throttle rate limits.
+  hello:
+    handler: src/throttle_me.handler
+    events:
+      - httpApi:
+          path: /hello
+          method: GET
+          routeSettings:
+            rateLimit: 10
+            burstLimit: 5
+            detailedMetricsEnabled: false
+```
+
 ## Caveats
 
-* Only DefaultRouteSettings are currently supported, I'm currently trying to get CloudFormation to work with RouteSettings for individual routes to override this.
-* Doesn't work with pre existing API Gateways, hoping to add support for this.
+* Currently, if we are to deploy with default route settings specified, then remove them, they will persist, you MUST specify new default route settings. I aim to fix this in an update, will default to account levels.
+* Doesn't work with pre existing API Gateways, eg if they are existing and we simply add routes in the serverless.yml. It is possible to add this plugin to an existing api gateway which is handled by serverless however.
   
 ## Example serverless.yml
 
@@ -56,7 +75,7 @@ plugins:
   - serverless-apigateway-route-settings
 
 custom: 
-  httpApiRouteSettings:
+  routeSettings:
     detailedMetricsEnabled: true
     rateLimit: 200
     burstLimit: 30
@@ -66,7 +85,7 @@ provider:
   runtime: nodejs12.x
 
 functions:
-  # Inherits the default throttle rate limits.
+  # Inherits the default route settings.
   hello:
     handler: src/helloWorld.handler
     events:
@@ -81,4 +100,11 @@ functions:
       - httpApi:
           path: /throttle
           method: GET
+          routeSettings:
+            rateLimit: 10
+            burstLimit: 3
 ```
+
+## Issues
+
+If you encounter any bugs, please let me know [here](https://github.com/talbotp/serverless-apigateway-route-settings/issues).

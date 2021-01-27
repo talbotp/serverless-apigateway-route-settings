@@ -4,11 +4,15 @@ const get = require('lodash.get');
 
 const config = require('./config');
 
-/**
- * ThrottlingRateLimit and ThrottlingBurstLimit must be non negative integers.
- */
 const isNonNegativeInteger = (val) => {
   return Number.isInteger(val) && val >= 0;
+}
+
+const chooseSetting = (routeSetting, defaultSetting) => {
+  if (typeof routeSetting !== 'undefined') {
+    return routeSetting;
+  }
+  return defaultSetting;
 }
 
 class RouteSettings {
@@ -40,6 +44,10 @@ class RouteSettings {
     }
   }
 
+  getRouteKey() {
+    return `${this.method} ${this.path}`;
+  }
+
   static buildDefaultRouteSettings(serverless) {
     const metricsEnabled  = get(serverless, `service.custom.${config.key}.detailedMetricsEnabled`);
     const burstLimit      = get(serverless, `service.custom.${config.key}.burstLimit`);
@@ -47,13 +55,19 @@ class RouteSettings {
     return new RouteSettings(undefined, undefined, undefined, metricsEnabled, burstLimit, rateLimit);
   }
 
-  static buildRouteSettings(functionName, event) {
+  static buildRouteSettings(functionName, event, defaultRouteSettings) {
     const path            = get(event, `httpApi.path`);
     const method          = get(event, `httpApi.method`);
     const metricsEnabled  = get(event, `httpApi.${config.key}.detailedMetricsEnabled`);
     const burstLimit      = get(event, `httpApi.${config.key}.burstLimit`);
     const rateLimit       = get(event, `httpApi.${config.key}.rateLimit`);
-    return new RouteSettings(functionName, path, method, metricsEnabled, burstLimit, rateLimit)
+
+    // Must choose default route settings if otherwise undefined, or will use account limits.
+    const actualMetricsEnabled  = chooseSetting(metricsEnabled, defaultRouteSettings.metricsEnabled);
+    const actualBurstLimit      = chooseSetting(burstLimit, defaultRouteSettings.burstLimit);
+    const actualRateLimit       = chooseSetting(rateLimit, defaultRouteSettings.rateLimit);
+
+    return new RouteSettings(functionName, path, method, actualMetricsEnabled, actualBurstLimit, actualRateLimit);
   }
 
 }

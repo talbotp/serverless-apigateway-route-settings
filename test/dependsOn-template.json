@@ -1,0 +1,52 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "The AWS CloudFormation template for this Serverless application",
+  "Resources": {
+    "TestLambdaFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {},
+      "DependsOn": [
+        "TestLogGroup"
+      ]
+    },
+    "HttpApi": {
+      "Type": "AWS::ApiGatewayV2::Api",
+      "Properties": {}
+    },
+    "HttpApiStage": {
+      "Type": "AWS::ApiGatewayV2::Stage",
+      "Properties": {},
+      "DependsOn": "I AM SET IN THE TESTS"
+    },
+    "HttpApiRouteGetHello": {
+      "Type": "AWS::ApiGatewayV2::Route",
+      "Properties": {
+        "RouteKey": "GET /hello"
+      },
+      "DependsOn": "HttpApiIntegrationHello"
+    },
+    "HttpApiRouteGetHelloWorld": {
+      "Type": "AWS::ApiGatewayV2::Route",
+      "Properties": {
+        "RouteKey": "GET /hello/world"
+      },
+      "DependsOn": "HttpApiIntegrationHello"
+    },
+    "TestLambdaPermissionHttpApi": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {},
+      "DependsOn": "undefined"
+    },
+    "HttpApiIntegrationTest": {
+      "Type": "AWS::ApiGatewayV2::Integration",
+      "Properties": {}
+    },
+    "RandomRouteName123": {
+      "Type": "AWS::ApiGatewayV2::Route",
+      "Properties": {
+        "RouteKey": "PUT /test"
+      },
+      "DependsOn": "HttpApiIntegrationTest"
+    }
+  }
+}

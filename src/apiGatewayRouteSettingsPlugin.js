@@ -2,7 +2,7 @@
 
 const config = require('./config');
 const StageSettings = require('./stageSettings');
-const updateCloudFormation = require('./updateCloudformation');
+const updateCloudFormation = require('./updateCloudFormation');
 
 class ApiGatewayRouteSettingsPlugin {
 
