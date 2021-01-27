@@ -21,7 +21,7 @@ class ApiGatewayRouteSettingsPlugin {
    */
   buildSettings() {
     this.serverless.cli.log(`[${config.app}] Building Route Settings for Api Gateway.`);
-    this.settings = new StageSettings(this.serverless, this.options);
+    this.settings = new StageSettings(this.serverless);
   }
 
   /**

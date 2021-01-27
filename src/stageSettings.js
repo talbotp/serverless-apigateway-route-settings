@@ -8,7 +8,7 @@ const RouteSettings = require('./routeSettings');
 
 class StageSettings {
 
-  constructor(serverless, options) {
+  constructor(serverless) {
     if (!get(serverless, 'service.custom.httpApiRouteSettings')) {
       serverless.cli.log(`[${config.app}] Warning: No default Route Settings have been provided.`);
     }

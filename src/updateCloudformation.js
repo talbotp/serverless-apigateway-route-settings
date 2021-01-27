@@ -11,7 +11,7 @@ const getStageName = (serverless) => {
 }
 
 const setIfDefined = (object, path, value) => {
-  if (!value) {
+  if (typeof value === 'undefined') {
     return;
   }
   set(object, path, value);
@@ -26,11 +26,13 @@ const updateDefaultRouteSettings = (serverless, defaultSettings) => {
   const HttpApiStage = getStageName(serverless);
   const stageProperties = get(serverless, `service.provider.compiledCloudFormationTemplate.Resources.${HttpApiStage}.Properties`);
 
-  setIfDefined(stageProperties, `DefaultRouteettings.DataTraceEnabled`,        defaultSettings.dataTraceEnabled);
-  setIfDefined(stageProperties, `DefaultRouteSettings.LoggingLevel`,           defaultSettings.loggingLevel);
+  console.log('burstLimit = ' + defaultSettings.burstLimit);
+
   setIfDefined(stageProperties, `DefaultRouteSettings.DetailedMetricsEnabled`, defaultSettings.detailedMetricsEnabled);
   setIfDefined(stageProperties, `DefaultRouteSettings.ThrottlingBurstLimit`,   defaultSettings.burstLimit);
   setIfDefined(stageProperties, `DefaultRouteSettings.ThrottlingRateLimit`,    defaultSettings.rateLimit);
+
+  console.log(stageProperties);
 }
 
 const getRouteKey = (routeSettings) => {
@@ -46,9 +48,7 @@ const updateRouteSettings = (serverless, routeSettings) => {
   const stageProperties = get(serverless, `service.provider.compiledCloudFormationTemplate.Resources.${HttpApiStage}.Properties`);
   const routeKey = getRouteKey(routeSettings);
 
-  setIfDefined(stageProperties, `RouteSettings.${routeKey}.DataTraceEnabled`,       routeSettings.dataTraceEnabled);
   setIfDefined(stageProperties, `RouteSettings.${routeKey}.DetailedMetricsEnabled`, routeSettings.detailedMetricsEnabled);
-  setIfDefined(stageProperties, `RouteSettings.${routeKey}.LoggingLevel`,           routeSettings.loggingLevel);
   setIfDefined(stageProperties, `RouteSettings.${routeKey}.ThrottlingBurstLimit`,   routeSettings.burstLimit);
   setIfDefined(stageProperties, `RouteSettings.${routeKey}.ThrottlingRateLimit`,    routeSettings.rateLimit);
 }
