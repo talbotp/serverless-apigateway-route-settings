@@ -42,7 +42,7 @@ describe('Test that CloudFormation template is updated correctly.', function() {
   describe('getRouteResourceName: GET /hello/world', function() {
     it('Should Return HttpApiRouteGetHelloWorld', function() {
       const serverless = {};
-      const resources = require('./routeKey-resources');
+      const resources = require('./resources/routeKey-resources');
       set(serverless, 'service.provider.compiledCloudFormationTemplate.Resources', resources);
 
       const method = 'GET';
@@ -57,7 +57,7 @@ describe('Test that CloudFormation template is updated correctly.', function() {
   describe('getRouteResourceName: PUT /test', function() {
     it('Should Return RandomRouteName123', function() {
       const serverless = {};
-      const resources = require('./routeKey-resources');
+      const resources = require('./resources/routeKey-resources');
       set(serverless, 'service.provider.compiledCloudFormationTemplate.Resources', resources);
 
       const method = 'PUT';
@@ -73,7 +73,7 @@ describe('Test that CloudFormation template is updated correctly.', function() {
     it('It should equal [routeKey]', function() {
       const routeResourceName = 'Route_Resource_Name_123';
       const serverless = {};
-      const cfTemplate = require('./dependsOn-template.json');
+      const cfTemplate = require('./resources/dependsOn-template.json');
       set(serverless, `service.provider.compiledCloudFormationTemplate`, cfTemplate);
 
       // Update the dependson for the stage to be undefined for this test.
@@ -91,7 +91,7 @@ describe('Test that CloudFormation template is updated correctly.', function() {
     it('It should equal [routeKey]', function() {
       const routeResourceName = 'Route_Resource_Name_123';
       const serverless = {};
-      const cfTemplate = require('./dependsOn-template.json');
+      const cfTemplate = require('./resources/dependsOn-template.json');
       set(serverless, `service.provider.compiledCloudFormationTemplate`, cfTemplate);
 
       // Update the dependson for the stage to be undefined for this test.
@@ -109,7 +109,7 @@ describe('Test that CloudFormation template is updated correctly.', function() {
     it('It should equal [routeKey]', function() {
       const routeResourceName = 'Route_Resource_Name_123';
       const serverless = {};
-      const cfTemplate = require('./dependsOn-template.json');
+      const cfTemplate = require('./resources/dependsOn-template.json');
       set(serverless, `service.provider.compiledCloudFormationTemplate`, cfTemplate);
 
       // Update the dependson for the stage to be undefined for this test.
