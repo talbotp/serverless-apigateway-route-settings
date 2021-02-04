@@ -105,6 +105,12 @@ functions:
             burstLimit: 3
 ```
 
+## What will be added to you CloudFormation template?
+
+* <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigatewayv2-stage.html#cfn-apigatewayv2-stage-defaultroutesettings" target="_blank">DefaultRouteSettings</a> will be added to your <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigatewayv2-stage.html" target="_blank">Stage</a>.
+* <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigatewayv2-stage.html#cfn-apigatewayv2-stage-routesettings" target="_blank">RouteSettings</a> will be added to your <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigatewayv2-stage.html" target="_blank">Stage</a>.
+* The <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-dependson.html" target="_blank">DependsOn</a> attribute is edited for your <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigatewayv2-stage.html" target="_blank">Stage</a>. We simply add any <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigatewayv2-route.html" target="_blank">Route's</a> with configured RouteSettings, to ensure the creation of the Routes before the Stage. Otherwise CloudFormation will error (as it tries to edit the RouteSettings for a Route that doesn't exist yet).
+
 ## Issues
 
-If you encounter any bugs, please let me know [here](https://github.com/talbotp/serverless-apigateway-route-settings/issues).
+If you encounter any bugs, please let me know [here](https://github.com/talbotp/serverless-apigateway-route-settings/issues), and I will aim to fix them soon :slightly_smiling_face:.
