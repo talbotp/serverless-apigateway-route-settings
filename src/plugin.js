@@ -14,6 +14,8 @@ class ApiGatewayRouteSettingsPlugin {
       'before:package:initialize':  this.buildSettings.bind(this),
       'before:package:finalize':    this.addToCloudFormation.bind(this)
     };
+
+    this.validationSchema();
   }
 
   /**
@@ -30,6 +32,21 @@ class ApiGatewayRouteSettingsPlugin {
   addToCloudFormation() {
     this.serverless.cli.log(`[${config.app}] Updating CloudFormation with Route Settings.`);
     updateCloudFormation(this.serverless, this.settings);
+  }
+
+  /**
+   * Make sure that Serverless doesn't throw any warning when overriding DefaultRouteSettings for 
+   * a Route.
+   */
+  validationSchema() {
+    if (!this.serverless.configSchemaHandler
+      || !this.serverless.configSchemaHandler.defineCustomProperties
+      || !this.serverless.configSchemaHandler.defineFunctionEventProperties) {
+      return;
+    }
+
+    this.serverless.configSchemaHandler.defineCustomProperties(config.validationSchema);
+    this.serverless.configSchemaHandler.defineFunctionEventProperties('aws', 'httpApi', config.validationSchema);
   }
 
 }
