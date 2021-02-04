@@ -105,7 +105,7 @@ functions:
             burstLimit: 3
 ```
 
-## What will be added to you CloudFormation template?
+## What will be added to your CloudFormation template?
 
 * <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigatewayv2-stage.html#cfn-apigatewayv2-stage-defaultroutesettings" target="_blank">DefaultRouteSettings</a> will be added to your <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigatewayv2-stage.html" target="_blank">Stage</a>.
 * <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigatewayv2-stage.html#cfn-apigatewayv2-stage-routesettings" target="_blank">RouteSettings</a> will be added to your <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigatewayv2-stage.html" target="_blank">Stage</a>.
