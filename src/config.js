@@ -12,4 +12,20 @@ config.app = 'serverless-apigateway-route-settings';
  */
 config.key = 'routeSettings';
 
+/**
+ * Schema for the routeSettings object in the serverless.yml.
+ */
+config.validationSchema = {
+  type: 'object',
+  properties: {
+    routeSettings: {
+      properties: {
+        detailedMetricsEnabled: { type: 'boolean' },
+        burstLimit: { type: 'number' },
+        rateLimit: { type: 'number' }
+      }
+    }
+  }
+};
+
 module.exports = config;
