@@ -113,4 +113,4 @@ functions:
 
 ## Issues
 
-If you encounter any bugs, please let me know [here](https://github.com/talbotp/serverless-apigateway-route-settings/issues), and I will aim to fix them soon :slightly_smiling_face:.
+If you encounter any bugs, please let me know [here](https://github.com/talbotp/serverless-apigateway-route-settings/issues), and I will aim to fix them soon :slightly_smiling_face:. Contributions are welcome, feel free to make a pull request into the develop branch.
