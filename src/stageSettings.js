@@ -9,7 +9,7 @@ const RouteSettings = require('./routeSettings');
 class StageSettings {
 
   constructor(serverless) {
-    if (!get(serverless, 'service.custom.httpApiRouteSettings')) {
+    if (!get(serverless, `service.custom.${config.key}`)) {
       serverless.cli.log(`[${config.app}] Warning: No default Route Settings have been provided.`);
     }
 
@@ -39,7 +39,7 @@ class StageSettings {
     }
 
     if (this.routeSettings.length === 0) {
-      serverless.cli.log(`[${config.app}] Warning: No Route settings have been provided.`)
+      serverless.cli.log(`[${config.app}] Warning: No RouteSettings have been provided to override the DefaultRouteSettings.`)
     }
   }
 
