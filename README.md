@@ -46,7 +46,6 @@ You can override the default route settings/account defaults by configuring at t
 
 ```yml
 functions:
-  # Inherits the default throttle rate limits.
   hello:
     handler: src/throttle_me.handler
     events:
