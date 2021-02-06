@@ -1,6 +1,6 @@
 {
   "name": "serverless-apigateway-route-settings",
-  "version": "0.0.6",
+  "version": "1.0.0",
   "description": "A Serverless Framework Plugin for configuring Route Settings for Api Gateway v2",
   "main": "src/plugin.js",
   "directories": {
