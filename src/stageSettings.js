@@ -22,6 +22,7 @@ class StageSettings {
     this.defaultRouteSettings = RouteSettings.buildDefaultRouteSettings(serverless);
 
     this.routeSettings = [];
+    this.wsRouteSettings = [];
 
     for (let functionName in serverless.service.functions) {
       let functionSettings = serverless.service.functions[functionName];
@@ -34,6 +35,9 @@ class StageSettings {
       for (let event of functionSettings.events) {
         if (get(event, `httpApi.${config.key}`)) {
           this.routeSettings.push(RouteSettings.buildRouteSettings(functionName, event, this.defaultRouteSettings));
+        } 
+        else if (get(event, `websocket.${config.key}`)) {
+          this.outeSettings.push(WsRouteSettings.buildRouteSettings(functionName, event, this.defaultRouteSettings));
         }
       }
     }
