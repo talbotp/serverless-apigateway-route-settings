@@ -19,13 +19,15 @@ config.validationSchema = {
   type: 'object',
   properties: {
     routeSettings: {
+      type: 'object',
       properties: {
         detailedMetricsEnabled: { type: 'boolean' },
         burstLimit: { type: 'number' },
-        rateLimit: { type: 'number' }
-      }
+        rateLimit: { type: 'number' },
+      },
+      additionalProperties: false
     }
-  }
+  },
 };
 
 module.exports = config;
