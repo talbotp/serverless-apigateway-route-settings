@@ -40,8 +40,8 @@ class ApiGatewayRouteSettingsPlugin {
    */
   validationSchema() {
     if (!this.serverless.configSchemaHandler
-      || !this.serverless.configSchemaHandler.defineCustomProperties
-      || !this.serverless.configSchemaHandler.defineFunctionEventProperties) {
+          || !this.serverless.configSchemaHandler.defineCustomProperties
+          || !this.serverless.configSchemaHandler.defineFunctionEventProperties) {
       return;
     }
 
